@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Asistencia</title>
+
+<!-- Fuentes idénticas a index.html -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background-color: #F9F8F5;
+  font-family: 'Montserrat', sans-serif;
+  color: #1A1A1A;
+  padding: 28px 15px 45px;
+}
+
+.contenedor{
+  width:100%;
+  max-width:960px;
+  margin:auto;
+}
+
+.tarjeta{
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(139, 0, 0, 0.25);
+  border-radius: 25px;
+  padding: 30px;
+  box-shadow: 0 15px 45px rgba(74, 0, 0, 0.08);
+}
+
+.titulo{
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  color: #8B0000;
+  margin: 0 0 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.estadisticas{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.estadistica{
+  background: #FAF7F2;
+  border: 1px solid #EAE5D9;
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.estadistica strong{
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: #8B0000;
+  line-height: 1;
+}
+
+.estadistica span{
+  display: block;
+  margin-top: 5px;
+  font-size: 9.5px;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-weight: 600;
+}
+
+.controles{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.busqueda{
+  flex: 1;
+  min-width: 0;
+  padding: 13px 15px;
+  border-radius: 12px;
+  border: 1px solid #EAE5D9;
+  background: #FFFFFF;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+  color: #1A1A1A;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.busqueda:focus{
+  border-color: #8B0000;
+  box-shadow: 0 0 8px rgba(139, 0, 0, 0.2);
+}
+
+.tabla-wrap{
+  overflow-x: auto;
+  border: 1px solid #EAE5D9;
+  border-radius: 15px;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th{
+  background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+  color: #ffffff;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 12px;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+thead th:nth-child(2),
+thead th:nth-child(3),
+thead th:nth-child(4){
+  text-align: center;
+}
+
+tbody td{
+  padding: 12px;
+  border-bottom: 1px solid #F0E8E0;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td{ border-bottom: none; }
+tbody tr:hover{ background: #FAF7F2; }
+
+tbody tr.presente{ background: #F3F7EE; }
+tbody tr.completa{ background: #EEF4E8 !important; }
+tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
+
+.nombre{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.pases{
+  text-align: center;
+  font-weight: 600;
+  color: #8B0000;
+}
+
+.badge-confirmacion {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+.badge-si { background: #E2F0D9; color: #385723; }
+.badge-no { background: #F2E8E8; color: #8A3B3B; }
+.badge-pendiente { background: #FFF2CC; color: #806000; }
+
+.estado{
+  text-align: center;
+  min-width: 145px;
+}
+
+.pase-check{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 4px;
+  cursor: pointer;
+  min-width: 32px;
+}
+
+.pase-check .check{
+  width: 20px;
+  height: 20px;
+  accent-color: #8B0000;
+  cursor: pointer;
+  margin: 0;
+}
+
+.numero-pase{
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: #8B0000;
+  font-weight: 600;
+}
+
+.vacio{
+  padding: 35px 15px;
+  text-align: center;
+  color: #8B0000;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.pie{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.guardado{
+  font-size: 11px;
+  color: #8B0000;
+  font-weight: 500;
+}
+
+.boton-secundario{
+  background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.boton-secundario:hover{
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* === DISEÑO ADAPTABLE Y ESTILOS PARA CELULAR === */
+@media(max-width:600px){
+  body{ padding: 12px 6px 25px; }
+  .tarjeta{ padding: 18px 12px; border-radius: 18px; }
+  .titulo{ font-size: 28px; margin-bottom: 12px; }
+  .estadisticas{ grid-template-columns: repeat(2,1fr); gap: 8px; margin: 14px 0; }
+  .estadistica{ padding: 10px 6px; }
+  .estadistica strong{ font-size: 24px; }
+  .estadistica span{ font-size: 8.5px; }
+  .controles{ flex-direction: column; }
+
+  /* Transformación de tabla a Tarjetas en móvil */
+  .tabla-wrap{ border: none; overflow: visible; }
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+
+  tbody tr {
+    background: #FFFFFF;
+    border: 1px solid #EAE5D9;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 4px 12px rgba(74, 0, 0, 0.05);
+    position: relative;
+  }
+
+  tbody tr.cancelado {
+    background: #F8F8F8;
+  }
+
+  tbody td {
+    border: none;
+    padding: 6px 0;
+    text-align: left !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  tbody td:first-child {
+    border-bottom: 1px solid #F0E8E0;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .nombre {
+    font-size: 20px;
+  }
+
+  tbody td:nth-child(2)::before { content: "Confirmación:"; font-size: 11px; color: #8B0000; font-weight: 500; }
+  tbody td:nth-child(3)::before { content: "Pases asignados:"; font-size: 11px; color: #8B0000; font-weight: 500; }
+  tbody td:nth-child(4)::before { content: "Entrada evento:"; font-size: 11px; color: #8B0000; font-weight: 500; }
+
+  .estado {
+    min-width: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .pase-check {
+    margin: 2px 4px;
+  }
+
+  .pie {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="contenedor">
+  <div class="tarjeta">
+
+    <h1 class="titulo">Panel de Asistencia</h1>
+
+    <div class="estadisticas">
+      <div class="estadistica">
+        <strong id="totalInvitados">0</strong>
+        <span>Invitados</span>
+      </div>
+      <div class="estadistica">
+        <strong id="totalConfirmados">0</strong>
+        <span>Confirmados (Sí)</span>
+      </div>
+      <div class="estadistica">
+        <strong id="totalPases">0</strong>
+        <span>Pases Asignados</span>
+      </div>
+      <div class="estadistica">
+        <strong id="totalPresentes">0</strong>
+        <span>Entrada el día del evento</span>
+      </div>
+    </div>
+
+    <div class="controles">
+      <input id="buscar" class="busqueda" type="text"
+             placeholder="Buscar invitado..."
+             autocomplete="off">
+    </div>
+
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Invitado / Familia</th>
+            <th>Confirmación</th>
+            <th>Pases</th>
+            <th>Entrada el día del evento</th>
+          </tr>
+        </thead>
+        <tbody id="lista"></tbody>
+      </table>
+      <div id="vacio" class="vacio">
+        Conectando con Google Sheets...
+      </div>
+    </div>
+
+    <div class="pie">
+      <div class="guardado" id="guardado">
+        Sincronizando...
+      </div>
+      <button class="boton-secundario" onclick="cargarListaDesdeServidor()">
+        Actualizar datos
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// MISMO API_URL UTILIZADO EN INDEX.HTML
+const API_URL = "https://script.google.com/macros/s/AKfycbx-Rf6vfxGz1L76qRYVjT6NWj4NtrnkoZltSiUI6df_AUu6lVynohgB_TwNiJdGUM-c/exec";
+
+let invitados = [];
+const buscar = document.getElementById('buscar');
+
+document.addEventListener('DOMContentLoaded', () => {
+  cargarListaDesdeServidor();
+  buscar.addEventListener('input', mostrarLista);
+  // Revisa la hoja automáticamente cada 8 segundos
+  setInterval(cargarListaDesdeServidor, 8000);
+});
+
+function llamarAPI(parametros) {
+  return new Promise((resolve, reject) => {
+    const callback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
+    const script = document.createElement('script');
+    const query = new URLSearchParams({ ...parametros, callback });
+    const tiempo = setTimeout(() => { limpiar(); reject("Tiempo agotado"); }, 12000);
+
+    window[callback] = function(data) {
+      clearTimeout(tiempo);
+      limpiar();
+      resolve(data);
+    };
+
+    function limpiar() {
+      delete window[callback];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    script.onerror = function() {
+      clearTimeout(tiempo);
+      limpiar();
+      reject("Error de conexión");
+    };
+
+    script.src = API_URL + '?' + query.toString();
+    document.body.appendChild(script);
+  });
+}
+
+async function cargarListaDesdeServidor() {
+  try {
+    const datos = await llamarAPI({ action: 'obtenerTodos' });
+    if (Array.isArray(datos)) {
+      invitados = datos;
+      mostrarLista();
+      document.getElementById('guardado').textContent =
+        'Sincronizado con Sheets · ' + new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+  } catch (e) {
+    console.warn("Error sincronizando:", e);
+  }
+}
+
+function mostrarLista() {
+  const tbody = document.getElementById('lista');
+  const vacio = document.getElementById('vacio');
+  const termino = buscar.value.trim().toLowerCase();
+
+  tbody.innerHTML = '';
+
+  const filtrados = invitados.filter(inv =>
+    inv.nombre.toLowerCase().includes(termino)
+  );
+
+  if (!invitados.length) {
+    vacio.style.display = 'block';
+    vacio.textContent = 'No hay invitados en Google Sheets.';
+  } else if (!filtrados.length) {
+    vacio.style.display = 'block';
+    vacio.textContent = 'No se encontraron resultados.';
+  } else {
+    vacio.style.display = 'none';
+
+    filtrados.forEach(inv => {
+      const tr = document.createElement('tr');
+      if (inv.asistencia === 'No') tr.className = 'cancelado';
+
+      // 1. Nombre
+      const tdNombre = document.createElement('td');
+      tdNombre.innerHTML = `<div class="nombre">${escapar(inv.nombre)}</div>`;
+
+      // 2. Estado RSVP (Asistencia enviada por el cliente)
+      const tdRSVP = document.createElement('td');
+      tdRSVP.style.textAlign = 'center';
+      let claseBadge = 'badge-pendiente';
+      let textoRSVP = 'Pendiente';
+
+      if (inv.asistencia === 'Sí') {
+        claseBadge = 'badge-si';
+        textoRSVP = 'Confirmó (Sí)';
+      } else if (inv.asistencia === 'No') {
+        claseBadge = 'badge-no';
+        textoRSVP = 'No asistirá';
+      }
+
+      tdRSVP.innerHTML = `<span class="badge-confirmacion ${claseBadge}">${textoRSVP}</span>`;
+
+      // 3. Pases
+      const totalPases = inv.asistencia === 'Sí' && inv.pasesConfirmados > 0 ? inv.pasesConfirmados : inv.pases;
+      const tdPases = document.createElement('td');
+      tdPases.className = 'pases';
+      tdPases.textContent = inv.asistencia === 'No' ? '0' : totalPases;
+
+      // 4. Checkboxes de Entrada en puerta
+      const tdEstado = document.createElement('td');
+      tdEstado.className = 'estado';
+
+      const estadoEntradas = Array.isArray(inv.entradas) ? inv.entradas : [];
+
+      if (inv.asistencia === 'No') {
+        tdEstado.innerHTML = '<span style="font-size:11px; color:#8B0000;">Cancelado</span>';
+      } else {
+        for (let i = 0; i < totalPases; i++) {
+          const envoltura = document.createElement('label');
+          envoltura.className = 'pase-check';
+
+          const check = document.createElement('input');
+          check.type = 'checkbox';
+          check.className = 'check';
+          check.checked = !!estadoEntradas[i];
+          check.title = 'Marcar pase ' + (i + 1);
+
+          const numero = document.createElement('span');
+          numero.className = 'numero-pase';
+          numero.textContent = i + 1;
+
+          check.addEventListener('change', async () => {
+            const nuevoEstado = check.checked;
+            estadoEntradas[i] = nuevoEstado;
+            inv.entradas = estadoEntradas;
+            actualizarFila(tr, inv);
+            actualizarEstadisticas();
+
+            try {
+              await llamarAPI({
+                action: 'marcarEntrada',
+                fila: inv.fila,
+                indexPase: i,
+                estado: nuevoEstado
+              });
+            } catch (err) {
+              console.error("Error al guardar entrada:", err);
+            }
+          });
+
+          envoltura.appendChild(check);
+          envoltura.appendChild(numero);
+          tdEstado.appendChild(envoltura);
+        }
+      }
+
+      tr.appendChild(tdNombre);
+      tr.appendChild(tdRSVP);
+      tr.appendChild(tdPases);
+      tr.appendChild(tdEstado);
+      tbody.appendChild(tr);
+      actualizarFila(tr, inv);
+    });
+  }
+
+  actualizarEstadisticas();
+}
+
+function actualizarEstadisticas() {
+  document.getElementById('totalInvitados').textContent = invitados.length;
+
+  const confirmados = invitados.filter(inv => inv.asistencia === 'Sí').length;
+  document.getElementById('totalConfirmados').textContent = confirmados;
+
+  const pases = invitados.reduce((suma, inv) => {
+    if (inv.asistencia === 'No') return suma;
+    return suma + (inv.asistencia === 'Sí' && inv.pasesConfirmados > 0 ? inv.pasesConfirmados : Number(inv.pases) || 0);
+  }, 0);
+  document.getElementById('totalPases').textContent = pases;
+
+  const presentes = invitados.reduce((total, inv) => {
+    if (inv.asistencia === 'No') return total;
+    const lista = Array.isArray(inv.entradas) ? inv.entradas : [];
+    return total + lista.filter(Boolean).length;
+  }, 0);
+  document.getElementById('totalPresentes').textContent = presentes;
+}
+
+function actualizarFila(tr, inv) {
+  if (inv.asistencia === 'No') return;
+  const lista = Array.isArray(inv.entradas) ? inv.entradas : [];
+  const llegaron = lista.filter(Boolean).length;
+  const total = inv.asistencia === 'Sí' && inv.pasesConfirmados > 0 ? inv.pasesConfirmados : Number(inv.pases);
+  tr.classList.toggle('presente', llegaron > 0);
+  tr.classList.toggle('completa', llegaron === total && total > 0);
+}
+
+function escapar(texto) {
+  return String(texto).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+</script>
+</body>
+</html>

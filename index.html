@@ -30,17 +30,17 @@ body{
 
 .tarjeta{
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(139, 0, 0, 0.25);
+  border: 1px solid rgba(190, 14, 35, 0.25);
   border-radius: 25px;
   padding: 30px;
-  box-shadow: 0 15px 45px rgba(74, 0, 0, 0.08);
+  box-shadow: 0 15px 45px rgba(190, 14, 35, 0.08);
 }
 
 .titulo{
   text-align: center;
   font-family: 'Cinzel', serif;
   font-size: 36px;
-  color: #8B0000;
+  color: #BE0E23;
   margin: 0 0 20px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -65,7 +65,7 @@ body{
   display: block;
   font-family: 'Cormorant Garamond', serif;
   font-size: 28px;
-  color: #8B0000;
+  color: #BE0E23;
   line-height: 1;
 }
 
@@ -100,8 +100,8 @@ body{
 }
 
 .busqueda:focus{
-  border-color: #8B0000;
-  box-shadow: 0 0 8px rgba(139, 0, 0, 0.2);
+  border-color: #BE0E23;
+  box-shadow: 0 0 8px rgba(190, 14, 35, 0.2);
 }
 
 .tabla-wrap{
@@ -116,7 +116,7 @@ table{
 }
 
 thead th{
-  background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+  background: linear-gradient(135deg, #BE0E23 0%, #7A0917 100%);
   color: #ffffff;
   font-family: 'Cinzel', serif;
   font-size: 14px;
@@ -156,7 +156,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
 .pases{
   text-align: center;
   font-weight: 600;
-  color: #8B0000;
+  color: #BE0E23;
 }
 
 .badge-confirmacion {
@@ -168,7 +168,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
   text-align: center;
 }
 .badge-si { background: #E2F0D9; color: #385723; }
-.badge-no { background: #F2E8E8; color: #8A3B3B; }
+.badge-no { background: #FDE8E8; color: #BE0E23; }
 .badge-pendiente { background: #FFF2CC; color: #806000; }
 
 .estado{
@@ -189,7 +189,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
 .pase-check .check{
   width: 20px;
   height: 20px;
-  accent-color: #8B0000;
+  accent-color: #BE0E23;
   cursor: pointer;
   margin: 0;
 }
@@ -198,14 +198,14 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
   display: block;
   margin-top: 2px;
   font-size: 10px;
-  color: #8B0000;
+  color: #BE0E23;
   font-weight: 600;
 }
 
 .vacio{
   padding: 35px 15px;
   text-align: center;
-  color: #8B0000;
+  color: #BE0E23;
   font-size: 13px;
   font-style: italic;
 }
@@ -220,12 +220,12 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
 
 .guardado{
   font-size: 11px;
-  color: #8B0000;
+  color: #BE0E23;
   font-weight: 500;
 }
 
 .boton-secundario{
-  background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+  background: linear-gradient(135deg, #BE0E23 0%, #7A0917 100%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 30px;
   color: #ffffff;
@@ -235,7 +235,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(74, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(190, 14, 35, 0.25);
   transition: all 0.3s ease;
 }
 
@@ -266,7 +266,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
     border-radius: 14px;
     margin-bottom: 12px;
     padding: 12px 14px;
-    box-shadow: 0 4px 12px rgba(74, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(190, 14, 35, 0.05);
     position: relative;
   }
 
@@ -294,9 +294,9 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
     font-size: 20px;
   }
 
-  tbody td:nth-child(2)::before { content: "Confirmación:"; font-size: 11px; color: #8B0000; font-weight: 500; }
-  tbody td:nth-child(3)::before { content: "Pases asignados:"; font-size: 11px; color: #8B0000; font-weight: 500; }
-  tbody td:nth-child(4)::before { content: "Entrada evento:"; font-size: 11px; color: #8B0000; font-weight: 500; }
+  tbody td:nth-child(2)::before { content: "Confirmación:"; font-size: 11px; color: #BE0E23; font-weight: 500; }
+  tbody td:nth-child(3)::before { content: "Pases asignados:"; font-size: 11px; color: #BE0E23; font-weight: 500; }
+  tbody td:nth-child(4)::before { content: "Entrada evento:"; font-size: 11px; color: #BE0E23; font-weight: 500; }
 
   .estado {
     min-width: auto;
@@ -379,7 +379,7 @@ tbody tr.cancelado{ opacity: 0.6; background: #F5F5F5; }
 
 <script>
 // MISMO API_URL UTILIZADO EN INDEX.HTML
-const API_URL = "https://script.google.com/macros/s/AKfycbwSQDaViNy2j7nwMulf9wEKfKNcWZhUaQdA0lQ5RshzhfMNSXtg6I0xCX4MZqpZ7QCI/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx-Rf6vfxGz1L76qRYVjT6NWj4NtrnkoZltSiUI6df_AUu6lVynohgB_TwNiJdGUM-c/exec";
 
 let invitados = [];
 const buscar = document.getElementById('buscar');
@@ -491,7 +491,7 @@ function mostrarLista() {
       const estadoEntradas = Array.isArray(inv.entradas) ? inv.entradas : [];
 
       if (inv.asistencia === 'No') {
-        tdEstado.innerHTML = '<span style="font-size:11px; color:#8B0000;">Cancelado</span>';
+        tdEstado.innerHTML = '<span style="font-size:11px; color:#BE0E23;">Cancelado</span>';
       } else {
         for (let i = 0; i < totalPases; i++) {
           const envoltura = document.createElement('label');
